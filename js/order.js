@@ -410,7 +410,14 @@ orderForm.addEventListener(
 
         }
 
+        const submitButton =
+    orderForm.querySelector(".submit-order-btn");
 
+if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.innerText = "Submitting Order...";
+}
+        
         fetch(GOOGLE_SHEET_URL, {
     method: "POST",
     mode: "no-cors",
