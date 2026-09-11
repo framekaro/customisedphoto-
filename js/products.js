@@ -10,7 +10,14 @@ const products = [
         image: "images/products/classic-frame.jpg",
         description: "A beautiful classic frame for your favorite memories."
     },
-
+{
+        id: "frame-001",
+        name: "Classic Photo Frame",
+        price: 499,
+        image: "images/products/classic-frame.jpg",
+        description: "A beautiful classic frame for your favorite memories."
+    },
+   
     {
         id: "frame-002",
         name: "Premium Photo Frame",
