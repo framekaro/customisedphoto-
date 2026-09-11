@@ -217,41 +217,128 @@ function updateOrderSummary() {
         return;
     }
 
-
     const quantity =
         Number(quantityInput.value) || 1;
-
 
     const total =
         selectedProduct.price * quantity;
 
+    const photoCount =
+        selectedPhotos.length;
+
+    const customerName =
+        document.getElementById("customer-name").value.trim();
+
+    const customerMobile =
+        document.getElementById("customer-mobile").value.trim();
+
+    const customerPincode =
+        document.getElementById("customer-pincode").value.trim();
+
+    const customerCity =
+        document.getElementById("customer-city").value.trim();
+
+    const customerDistrict =
+        document.getElementById("customer-district").value.trim();
+
+    const customerState =
+        document.getElementById("customer-state").value.trim();
+
 
     orderSummary.innerHTML = `
+        <div class="summary-row">
+            <strong>Product</strong>
+            <span>${selectedProduct.name}</span>
+        </div>
 
-        <p>
-            <strong>Frame:</strong>
-            ${selectedProduct.name}
-        </p>
+        <div class="summary-row">
+            <strong>Price</strong>
+            <span>₹${selectedProduct.price}</span>
+        </div>
 
-        <p>
-            <strong>Price:</strong>
-            ₹${selectedProduct.price}
-        </p>
+        <div class="summary-row">
+            <strong>Quantity</strong>
+            <span>${quantity}</span>
+        </div>
 
-        <p>
-            <strong>Quantity:</strong>
-            ${quantity}
-        </p>
+        <div class="summary-row">
+            <strong>Photos</strong>
+            <span>${photoCount}</span>
+        </div>
+
+        ${
+            customerName
+                ? `
+                <div class="summary-row">
+                    <strong>Name</strong>
+                    <span>${customerName}</span>
+                </div>
+                `
+                : ""
+        }
+
+        ${
+            customerMobile
+                ? `
+                <div class="summary-row">
+                    <strong>Mobile</strong>
+                    <span>${customerMobile}</span>
+                </div>
+                `
+                : ""
+        }
+
+        ${
+            customerPincode
+                ? `
+                <div class="summary-row">
+                    <strong>PIN Code</strong>
+                    <span>${customerPincode}</span>
+                </div>
+                `
+                : ""
+        }
+
+        ${
+            customerCity
+                ? `
+                <div class="summary-row">
+                    <strong>Post Office</strong>
+                    <span>${customerCity}</span>
+                </div>
+                `
+                : ""
+        }
+
+        ${
+            customerDistrict
+                ? `
+                <div class="summary-row">
+                    <strong>District</strong>
+                    <span>${customerDistrict}</span>
+                </div>
+                `
+                : ""
+        }
+
+        ${
+            customerState
+                ? `
+                <div class="summary-row">
+                    <strong>State</strong>
+                    <span>${customerState}</span>
+                </div>
+                `
+                : ""
+        }
 
         <hr>
 
-        <p>
-            <strong>Total:</strong>
-            ₹${total}
-        </p>
-
+        <div class="summary-total">
+            <strong>Total Amount</strong>
+            <strong>₹${total}</strong>
+        </div>
     `;
-
 }
 
 
