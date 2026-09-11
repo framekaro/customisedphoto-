@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="hi">
+
 <head>
+
     <meta charset="UTF-8">
 
     <meta name="viewport"
@@ -9,12 +11,15 @@
     <title>Product | FrameKaro</title>
 
     <meta name="description"
-          content="FrameKaro personalized photo frames">
+          content="FrameKaro Personalized Photo Frames">
 
     <link rel="stylesheet" href="css/style.css">
+
 </head>
 
+
 <body>
+
 
 <header class="site-header">
 
@@ -36,11 +41,15 @@
 </header>
 
 
+
 <main>
 
 <section class="product-detail">
 
     <div class="product-detail-container">
+
+
+        <!-- PRODUCT IMAGE -->
 
         <div class="product-detail-image">
 
@@ -51,19 +60,25 @@
         </div>
 
 
+
+        <!-- PRODUCT INFORMATION -->
+
         <div class="product-detail-info">
 
             <span class="section-tag">
                 FRAMEKARO COLLECTION
             </span>
 
+
             <h1 id="product-name">
                 Product
             </h1>
 
+
             <p id="product-description">
                 Product description
             </p>
+
 
             <div class="detail-info">
 
@@ -80,19 +95,119 @@
             </div>
 
 
+            <!-- PRICE -->
+
             <div class="detail-price">
                 ₹<span id="product-price">0</span>
             </div>
 
-            <p class="delivery-note">
-                🚚 Home Delivery Available
-            </p>
+
+            <!-- PHOTO UPLOAD -->
+
+            <div class="custom-order-box">
+
+                <h3>
+                    📸 अपनी Photo Upload करें
+                </h3>
+
+                <p>
+                    जिस Photo को Frame में लगवाना चाहते हैं,
+                    उसे यहाँ select करें।
+                </p>
 
 
-            <button class="product-btn"
-                    onclick="startOrder()">
+                <input
+                    type="file"
+                    id="photo-upload"
+                    accept="image/*"
+                >
 
-                Order This Frame
+
+                <div id="photo-preview-box"
+                     class="photo-preview-box">
+
+                    <img id="photo-preview"
+                         src=""
+                         alt="Photo Preview">
+
+                </div>
+
+            </div>
+
+
+
+            <!-- QUANTITY -->
+
+            <div class="quantity-box">
+
+                <label for="quantity">
+                    Quantity
+                </label>
+
+                <div class="quantity-control">
+
+                    <button type="button"
+                            onclick="changeQuantity(-1)">
+                        −
+                    </button>
+
+                    <input
+                        type="number"
+                        id="quantity"
+                        value="1"
+                        min="1"
+                        max="10"
+                        readonly
+                    >
+
+                    <button type="button"
+                            onclick="changeQuantity(1)">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SPECIAL INSTRUCTIONS -->
+
+            <div class="custom-message-box">
+
+                <label for="customer-note">
+                    📝 कोई Special Instruction?
+                </label>
+
+                <textarea
+                    id="customer-note"
+                    rows="4"
+                    placeholder="उदाहरण: Photo को centre में रखें..."
+                ></textarea>
+
+            </div>
+
+
+
+            <!-- TOTAL -->
+
+            <div class="order-total">
+
+                <span>Total</span>
+
+                <strong>
+                    ₹<span id="total-price">0</span>
+                </strong>
+
+            </div>
+
+
+
+            <button
+                class="product-btn"
+                onclick="continueOrder()">
+
+                Continue to Order →
 
             </button>
 
@@ -113,6 +228,7 @@
 </main>
 
 
+
 <footer>
 
     <div class="container">
@@ -126,77 +242,179 @@
 </footer>
 
 
+
 <script src="js/config.js"></script>
 <script src="js/products.js"></script>
 <script src="js/main.js"></script>
 
 
+
 <script>
 
-const params = new URLSearchParams(window.location.search);
+const params =
+    new URLSearchParams(window.location.search);
 
-const productId = params.get("id");
+const productId =
+    params.get("id");
 
-const product = PRODUCTS.find(
-    item => item.id === productId
-);
 
+const product =
+    PRODUCTS.find(item => item.id === productId);
+
+
+let quantity = 1;
+
+
+
+/* PRODUCT LOAD */
 
 if (product) {
 
     document.title =
         product.name + " | FrameKaro";
 
+
     document.getElementById("product-image").src =
         product.image;
+
 
     document.getElementById("product-image").alt =
         product.name;
 
+
     document.getElementById("product-name").textContent =
         product.name;
+
 
     document.getElementById("product-description").textContent =
         product.description;
 
+
     document.getElementById("product-size").textContent =
         product.size;
+
 
     document.getElementById("product-category").textContent =
         product.category;
 
+
     document.getElementById("product-price").textContent =
         product.price;
 
-} else {
 
-    document.querySelector(".product-detail-container").innerHTML = `
-        <div style="text-align:center;width:100%;">
-            <h2>Product नहीं मिला</h2>
-            <p>यह product उपलब्ध नहीं है।</p>
-            <br>
-            <a href="index.html#products" class="product-btn">
-                वापस Frames देखें
-            </a>
-        </div>
-    `;
+    updateTotal();
 
 }
 
 
-function startOrder() {
+/* PHOTO PREVIEW */
+
+document
+    .getElementById("photo-upload")
+    .addEventListener("change", function () {
+
+        const file = this.files[0];
+
+        if (!file) return;
+
+
+        const reader = new FileReader();
+
+
+        reader.onload = function (event) {
+
+            document.getElementById("photo-preview").src =
+                event.target.result;
+
+            document.getElementById("photo-preview-box")
+                .classList.add("show");
+
+        };
+
+
+        reader.readAsDataURL(file);
+
+    });
+
+
+
+/* QUANTITY */
+
+function changeQuantity(change) {
+
+    quantity += change;
+
+
+    if (quantity < 1) {
+        quantity = 1;
+    }
+
+
+    if (quantity > 10) {
+        quantity = 10;
+    }
+
+
+    document.getElementById("quantity").value =
+        quantity;
+
+
+    updateTotal();
+
+}
+
+
+
+/* TOTAL PRICE */
+
+function updateTotal() {
 
     if (!product) return;
 
+
+    const total =
+        product.price * quantity;
+
+
+    document.getElementById("total-price").textContent =
+        total;
+
+}
+
+
+
+/* CONTINUE */
+
+function continueOrder() {
+
+    if (!product) return;
+
+
+    const photo =
+        document.getElementById("photo-upload").files[0];
+
+
+    if (!photo) {
+
+        alert("कृपया पहले अपनी Photo Upload करें।");
+
+        return;
+
+    }
+
+
     alert(
-        "आपने चुना है: " +
-        product.name +
-        "\\n\\nअगले step में यहाँ Photo Upload और Order Form आएगा।"
+        "Product: " + product.name +
+        "\nQuantity: " + quantity +
+        "\nTotal: ₹" + (product.price * quantity) +
+        "\n\nअगले step में यहाँ Customer Details और Order Checkout आएगा।"
     );
 
 }
 
 </script>
 
+
 </body>
+
 </html>
