@@ -1,0 +1,273 @@
+/* ========================================
+   FRAMEKARO - ORDER PAGE
+======================================== */
+
+.order-page {
+    min-height: 75vh;
+    padding: 60px 20px;
+    background: #f8f9fc;
+}
+
+
+/* ========================================
+   HEADING
+======================================== */
+
+.order-heading {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 40px;
+}
+
+.order-heading h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.order-heading p {
+    color: #666;
+    font-size: 17px;
+}
+
+
+/* ========================================
+   FORM
+======================================== */
+
+.order-form {
+    width: 100%;
+    max-width: 750px;
+
+    margin: auto;
+
+    background: #ffffff;
+
+    padding: 30px;
+
+    border-radius: 16px;
+
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ========================================
+   FORM SECTION
+======================================== */
+
+.form-section {
+    margin-bottom: 30px;
+
+    padding-bottom: 25px;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+.form-section h2 {
+    font-size: 22px;
+    margin-bottom: 18px;
+}
+
+
+/* ========================================
+   LABEL
+======================================== */
+
+.form-section label {
+    display: block;
+
+    margin-top: 15px;
+    margin-bottom: 7px;
+
+    font-weight: 600;
+}
+
+
+/* ========================================
+   INPUTS
+======================================== */
+
+.form-section input[type="text"],
+.form-section input[type="tel"],
+.form-section input[type="number"],
+.form-section textarea {
+
+    width: 100%;
+
+    padding: 13px 14px;
+
+    border: 1px solid #dddddd;
+
+    border-radius: 8px;
+
+    font-size: 16px;
+
+    outline: none;
+
+    font-family: inherit;
+
+    background: #ffffff;
+}
+
+
+.form-section textarea {
+    resize: vertical;
+}
+
+
+.form-section input:focus,
+.form-section textarea:focus {
+    border-color: #6c4cff;
+}
+
+
+/* ========================================
+   FILE UPLOAD
+======================================== */
+
+#photo-upload {
+
+    width: 100%;
+
+    padding: 15px;
+
+    border: 2px dashed #cccccc;
+
+    border-radius: 10px;
+
+    background: #fafafa;
+
+    cursor: pointer;
+}
+
+
+.upload-help {
+    color: #777;
+
+    margin-bottom: 15px;
+}
+
+
+/* ========================================
+   PHOTO PREVIEW
+======================================== */
+
+.photo-preview {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 12px;
+
+    margin-top: 20px;
+}
+
+
+.photo-preview img {
+
+    width: 100%;
+
+    height: 120px;
+
+    object-fit: cover;
+
+    border-radius: 8px;
+}
+
+
+/* ========================================
+   SELECTED PRODUCT
+======================================== */
+
+#selected-product {
+
+    padding: 15px;
+
+    background: #f8f9fc;
+
+    border-radius: 10px;
+}
+
+
+/* ========================================
+   ORDER SUMMARY
+======================================== */
+
+.order-summary {
+
+    padding: 20px;
+
+    margin-bottom: 25px;
+
+    background: #f3efff;
+
+    border-radius: 10px;
+}
+
+.order-summary h2 {
+    margin-bottom: 15px;
+}
+
+
+/* ========================================
+   SUBMIT BUTTON
+======================================== */
+
+.submit-order-btn {
+
+    width: 100%;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #6c4cff;
+
+    color: #ffffff;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.submit-order-btn:hover {
+    transform: translateY(-2px);
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 600px) {
+
+    .order-page {
+        padding: 40px 15px;
+    }
+
+    .order-form {
+        padding: 20px;
+    }
+
+    .order-heading h1 {
+        font-size: 32px;
+    }
+
+    .photo-preview {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .photo-preview img {
+        height: 140px;
+    }
+
+}
