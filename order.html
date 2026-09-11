@@ -144,17 +144,90 @@
                     >
 
 
-                    <label for="customer-address">
-                        Delivery Address
-                    </label>
+                    <!-- PIN CODE -->
 
-                    <textarea
-                        id="customer-address"
-                        name="customerAddress"
-                        rows="4"
-                        placeholder="Enter complete delivery address"
-                        required
-                    ></textarea>
+<label for="customer-pincode">
+    PIN Code
+</label>
+
+<input
+    type="text"
+    id="customer-pincode"
+    name="customerPincode"
+    placeholder="Enter 6-digit PIN Code"
+    inputmode="numeric"
+    maxlength="6"
+    autocomplete="postal-code"
+    required
+>
+
+
+<!-- AUTO LOCATION DETAILS -->
+
+<label for="customer-city">
+    City / Post Office
+</label>
+
+<input
+    type="text"
+    id="customer-city"
+    name="customerCity"
+    placeholder="Auto-filled from PIN Code"
+    readonly
+>
+
+
+<label for="customer-district">
+    District
+</label>
+
+<input
+    type="text"
+    id="customer-district"
+    name="customerDistrict"
+    placeholder="Auto-filled from PIN Code"
+    readonly
+>
+
+
+<label for="customer-state">
+    State
+</label>
+
+<input
+    type="text"
+    id="customer-state"
+    name="customerState"
+    placeholder="Auto-filled from PIN Code"
+    readonly
+>
+
+
+<!-- COMPLETE ADDRESS -->
+
+<label for="customer-address">
+    House / Street / Local Address
+</label>
+
+<textarea
+    id="customer-address"
+    name="customerAddress"
+    rows="4"
+    placeholder="Enter house number, street, village, area etc."
+    required
+></textarea>
+
+
+<label for="customer-landmark">
+    Landmark
+</label>
+
+<input
+    type="text"
+    id="customer-landmark"
+    name="customerLandmark"
+    placeholder="Nearby landmark (optional)"
+>
 
                 </div>
 
