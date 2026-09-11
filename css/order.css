@@ -271,3 +271,90 @@
     }
 
 }
+/* Order Success Popup */
+
+.order-success-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 9999;
+}
+
+.order-success-box {
+    width: 100%;
+    max-width: 420px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 32px 24px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    animation: successPopup 0.3s ease;
+}
+
+.success-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: #16a34a;
+    color: #ffffff;
+    font-size: 42px;
+    font-weight: bold;
+    line-height: 70px;
+}
+
+.order-success-box h2 {
+    margin: 0 0 10px;
+    font-size: 26px;
+    color: #111827;
+}
+
+.order-success-box p {
+    margin: 8px 0;
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+.success-note {
+    font-size: 15px;
+}
+
+.success-close-btn {
+    margin-top: 20px;
+    width: 100%;
+    padding: 13px 20px;
+    border: none;
+    border-radius: 10px;
+    background: #111827;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.success-close-btn:active {
+    transform: scale(0.98);
+}
+
+@keyframes successPopup {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Submit button while order is being sent */
+
+.submit-order-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
