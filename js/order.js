@@ -418,9 +418,8 @@ if (submitButton) {
     submitButton.innerText = "Submitting Order...";
 }
         
-        fetch(GOOGLE_SHEET_URL, {
+     fetch(GOOGLE_SHEET_URL, {
     method: "POST",
-    mode: "no-cors",
     headers: {
         "Content-Type": "text/plain;charset=utf-8"
     },
@@ -431,34 +430,23 @@ if (submitButton) {
         customerMobile: mobile,
 
         customerPincode:
-            document.getElementById(
-                "customer-pincode"
-            ).value.trim(),
+            document.getElementById("customer-pincode").value.trim(),
 
         customerCity:
-            document.getElementById(
-                "customer-city"
-            ).value.trim(),
+            document.getElementById("customer-city").value.trim(),
 
         customerDistrict:
-            document.getElementById(
-                "customer-district"
-            ).value.trim(),
+            document.getElementById("customer-district").value.trim(),
 
         customerState:
-            document.getElementById(
-                "customer-state"
-            ).value.trim(),
+            document.getElementById("customer-state").value.trim(),
 
         customerAddress: address,
 
         customerLandmark:
-            document.getElementById(
-                "customer-landmark"
-            ).value.trim(),
+            document.getElementById("customer-landmark").value.trim(),
 
-        productName:
-            selectedProduct.name,
+        productName: selectedProduct.name,
 
         quantity:
             Number(quantityInput.value) || 1,
@@ -471,52 +459,71 @@ if (submitButton) {
             selectedPhotos.length
     })
 })
-.then(function () {
+.then(function(response) {
 
-    document.body.insertAdjacentHTML(
-    "beforeend",
-    `
-    <div class="order-success-overlay">
-        <div class="order-success-box">
-
-            <div class="success-icon">✓</div>
-
-            <h2>Order Placed Successfully!</h2>
-
-            <p>
-                Thank you for choosing <strong>FrameKaro</strong>.
-            </p>
-
-            <p class="success-note">
-                आपका order successfully receive हो गया है।
-                हमारी team जल्द ही आपसे contact करेगी।
-            </p>
-
-            <button
-                type="button"
-                class="success-close-btn"
-                onclick="this.closest('.order-success-overlay').remove()"
-            >
-                Done
-            </button>
-
-        </div>
-    </div>
-    `
-);
+    return response.json();
 
 })
-.catch(function () {
-if (submitButton) {
-    submitButton.disabled = false;
-    submitButton.innerText = "Place Order";
-}
+.then(function(data) {
 
-alert(
-    "Order submit nahi ho paaya. Please try again."
-);
-    
-});
-
+    if (!data.success) {
+        throw new Error(
+            data.error || "Order submission failed"
+        );
     }
-);
+
+    document.body.insertAdjacentHTML(
+        "beforeend",
+        `
+        <div class="order-success-overlay">
+
+            <div class="order-success-box">
+
+                <div class="success-icon">✓</div>
+
+                <h2>Order Placed Successfully!</h2>
+
+                <p>
+                    Thank you for choosing
+                    <strong>FrameKaro</strong>.
+                </p>
+
+                <div class="order-id-box">
+                    <span>Your Order ID</span>
+                    <strong>${data.orderId}</strong>
+                </div>
+
+                <p class="success-note">
+                    इस Order ID को संभालकर रखें।
+                    इसी ID से आप बाद में अपना order track कर पाएंगे।
+                </p>
+
+                <button
+                    type="button"
+                    class="success-close-btn"
+                    onclick="this.closest('.order-success-overlay').remove()"
+                >
+                    Done
+                </button>
+
+            </div>
+
+        </div>
+        `
+    );
+
+})
+.catch(function(error) {
+
+    if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.innerText = "Place Order";
+    }
+
+    alert(
+        "Order submit nahi ho paaya. Please try again."
+    );
+
+});   
+    `
+    
