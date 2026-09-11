@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Product | FrameKaro</title>
+
+    <meta name="description"
+          content="FrameKaro personalized photo frames">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="container header-inner">
+
+        <a href="index.html" class="logo">
+            <span data-business-name>FrameKaro</span>
+        </a>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#products">Frames</a>
+            <a href="index.html#how-it-works">How It Works</a>
+            <a href="index.html#contact">Contact</a>
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main>
+
+<section class="product-detail">
+
+    <div class="product-detail-container">
+
+        <div class="product-detail-image">
+
+            <img id="product-image"
+                 src=""
+                 alt="Photo Frame">
+
+        </div>
+
+
+        <div class="product-detail-info">
+
+            <span class="section-tag">
+                FRAMEKARO COLLECTION
+            </span>
+
+            <h1 id="product-name">
+                Product
+            </h1>
+
+            <p id="product-description">
+                Product description
+            </p>
+
+            <div class="detail-info">
+
+                <div>
+                    <strong>Size</strong>
+                    <span id="product-size">-</span>
+                </div>
+
+                <div>
+                    <strong>Category</strong>
+                    <span id="product-category">-</span>
+                </div>
+
+            </div>
+
+
+            <div class="detail-price">
+                ₹<span id="product-price">0</span>
+            </div>
+
+            <p class="delivery-note">
+                🚚 Home Delivery Available
+            </p>
+
+
+            <button class="product-btn"
+                    onclick="startOrder()">
+
+                Order This Frame
+
+            </button>
+
+
+            <a href="index.html#products"
+               class="back-link">
+
+                ← वापस Frames देखें
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    <div class="container">
+
+        <p>
+            © 2026 FrameKaro. All Rights Reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script src="js/config.js"></script>
+<script src="js/products.js"></script>
+<script src="js/main.js"></script>
+
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+const productId = params.get("id");
+
+const product = PRODUCTS.find(
+    item => item.id === productId
+);
+
+
+if (product) {
+
+    document.title =
+        product.name + " | FrameKaro";
+
+    document.getElementById("product-image").src =
+        product.image;
+
+    document.getElementById("product-image").alt =
+        product.name;
+
+    document.getElementById("product-name").textContent =
+        product.name;
+
+    document.getElementById("product-description").textContent =
+        product.description;
+
+    document.getElementById("product-size").textContent =
+        product.size;
+
+    document.getElementById("product-category").textContent =
+        product.category;
+
+    document.getElementById("product-price").textContent =
+        product.price;
+
+} else {
+
+    document.querySelector(".product-detail-container").innerHTML = `
+        <div style="text-align:center;width:100%;">
+            <h2>Product नहीं मिला</h2>
+            <p>यह product उपलब्ध नहीं है।</p>
+            <br>
+            <a href="index.html#products" class="product-btn">
+                वापस Frames देखें
+            </a>
+        </div>
+    `;
+
+}
+
+
+function startOrder() {
+
+    if (!product) return;
+
+    alert(
+        "आपने चुना है: " +
+        product.name +
+        "\\n\\nअगले step में यहाँ Photo Upload और Order Form आएगा।"
+    );
+
+}
+
+</script>
+
+</body>
+</html>
