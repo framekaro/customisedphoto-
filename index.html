@@ -416,18 +416,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 function startOrder(productId) {
-
-    const product =
-        PRODUCTS.find(item => item.id === productId);
-
-    if (!product) return;
-
-    alert(
-        "Selected Product: " +
-        product.name +
-        "\\n\\nOrder system हम अगले step में बनाएँगे।"
-    );
-
+    window.location.href =
+        "../product.html?id=" + encodeURIComponent(productId);
 }
 
 </script>
