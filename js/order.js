@@ -411,9 +411,73 @@ orderForm.addEventListener(
         }
 
 
-        alert(
-            "Order form is ready. Final order submission will be added in the next step."
-        );
+        fetch(GOOGLE_SHEET_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+    },
+    body: JSON.stringify({
+
+        customerName: name,
+
+        customerMobile: mobile,
+
+        customerPincode:
+            document.getElementById(
+                "customer-pincode"
+            ).value.trim(),
+
+        customerCity:
+            document.getElementById(
+                "customer-city"
+            ).value.trim(),
+
+        customerDistrict:
+            document.getElementById(
+                "customer-district"
+            ).value.trim(),
+
+        customerState:
+            document.getElementById(
+                "customer-state"
+            ).value.trim(),
+
+        customerAddress: address,
+
+        customerLandmark:
+            document.getElementById(
+                "customer-landmark"
+            ).value.trim(),
+
+        productName:
+            selectedProduct.name,
+
+        quantity:
+            Number(quantityInput.value) || 1,
+
+        totalAmount:
+            selectedProduct.price *
+            (Number(quantityInput.value) || 1),
+
+        photoCount:
+            selectedPhotos.length
+    })
+})
+.then(function () {
+
+    alert(
+        "Order successfully submitted! Thank you for choosing FrameKaro."
+    );
+
+})
+.catch(function () {
+
+    alert(
+        "Order submit nahi ho paaya. Please try again."
+    );
+
+});
 
     }
 );
