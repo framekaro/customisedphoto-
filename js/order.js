@@ -473,17 +473,49 @@ if (submitButton) {
 })
 .then(function () {
 
-    alert(
-        "Order successfully submitted! Thank you for choosing FrameKaro."
-    );
+    document.body.insertAdjacentHTML(
+    "beforeend",
+    `
+    <div class="order-success-overlay">
+        <div class="order-success-box">
+
+            <div class="success-icon">✓</div>
+
+            <h2>Order Placed Successfully!</h2>
+
+            <p>
+                Thank you for choosing <strong>FrameKaro</strong>.
+            </p>
+
+            <p class="success-note">
+                आपका order successfully receive हो गया है।
+                हमारी team जल्द ही आपसे contact करेगी।
+            </p>
+
+            <button
+                type="button"
+                class="success-close-btn"
+                onclick="this.closest('.order-success-overlay').remove()"
+            >
+                Done
+            </button>
+
+        </div>
+    </div>
+    `
+);
 
 })
 .catch(function () {
+if (submitButton) {
+    submitButton.disabled = false;
+    submitButton.innerText = "Place Order";
+}
 
-    alert(
-        "Order submit nahi ho paaya. Please try again."
-    );
-
+alert(
+    "Order submit nahi ho paaya. Please try again."
+);
+    
 });
 
     }
