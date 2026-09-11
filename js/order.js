@@ -1,3 +1,6 @@
+const GOOGLE_SHEET_URL =
+    "https://script.google.com/macros/s/AKfycbxX1jQkC7qAHacAAgoRydEpe1klRLQkj-fBRIn0cO83gpE6Y00kcc7TSiazGuXrsY_c/exec";
+
 /* ========================================
    FRAMEKARO - ORDER SYSTEM
 ======================================== */
