@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>FrameKaro | Place Your Order</title>
+
+    <meta
+        name="description"
+        content="Place your custom photo frame order with FrameKaro."
+    >
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/order.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="header">
+
+        <div class="logo">
+            FrameKaro
+        </div>
+
+
+        <nav class="navbar">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="products.html">
+                Products
+            </a>
+
+            <a href="order.html">
+                Order
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =========================
+         ORDER PAGE
+    ========================== -->
+
+    <main>
+
+        <section class="order-page">
+
+
+            <div class="order-heading">
+
+                <h1>
+                    Place Your Order
+                </h1>
+
+                <p>
+                    Enter your details and upload your photos.
+                </p>
+
+            </div>
+
+
+
+            <!-- =========================
+                 ORDER FORM
+            ========================== -->
+
+            <form
+                id="order-form"
+                class="order-form"
+            >
+
+
+                <!-- PRODUCT INFORMATION -->
+
+                <div class="form-section">
+
+                    <h2>
+                        Selected Frame
+                    </h2>
+
+
+                    <div id="selected-product">
+
+                        <!-- Product will appear here -->
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CUSTOMER DETAILS -->
+
+                <div class="form-section">
+
+                    <h2>
+                        Customer Details
+                    </h2>
+
+
+                    <label for="customer-name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="customer-name"
+                        name="customerName"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+
+                    <label for="customer-mobile">
+                        Mobile Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="customer-mobile"
+                        name="customerMobile"
+                        placeholder="Enter your mobile number"
+                        required
+                    >
+
+
+                    <label for="customer-address">
+                        Delivery Address
+                    </label>
+
+                    <textarea
+                        id="customer-address"
+                        name="customerAddress"
+                        rows="4"
+                        placeholder="Enter complete delivery address"
+                        required
+                    ></textarea>
+
+                </div>
+
+
+
+                <!-- =========================
+                     MULTIPLE PHOTO UPLOAD
+                ========================== -->
+
+                <div class="form-section">
+
+                    <h2>
+                        Upload Your Photos
+                    </h2>
+
+
+                    <p class="upload-help">
+                        You can select multiple photos.
+                    </p>
+
+
+                    <input
+                        type="file"
+                        id="photo-upload"
+                        name="photos"
+                        accept="image/*"
+                        multiple
+                    >
+
+
+                    <!-- PHOTO PREVIEW -->
+
+                    <div
+                        id="photo-preview"
+                        class="photo-preview"
+                    >
+
+                        <!-- Uploaded photos will appear here -->
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =========================
+                     QUANTITY
+                ========================== -->
+
+                <div class="form-section">
+
+                    <h2>
+                        Quantity
+                    </h2>
+
+
+                    <input
+                        type="number"
+                        id="quantity"
+                        name="quantity"
+                        value="1"
+                        min="1"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- =========================
+                     ORDER SUMMARY
+                ========================== -->
+
+                <div class="order-summary">
+
+                    <h2>
+                        Order Summary
+                    </h2>
+
+
+                    <div
