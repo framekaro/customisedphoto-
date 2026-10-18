@@ -201,34 +201,40 @@ function renderProducts() {
 
       <div class="product-image">
 
-        <div class="frame-placeholder">
+  <div class="frame-showcase">
 
-          <div class="mock-frame">
+    <div class="frame-outer">
 
-            <div class="mock-photo">
+      <div class="frame-inner">
 
-              <div class="mock-photo-text">
-                YOUR PHOTO
-              </div>
+        <div class="frame-photo">
 
-            </div>
-
-          </div>
+          <span>
+            YOUR PHOTO
+          </span>
 
         </div>
 
-        <img
-          src="${product.image}"
-          alt="${product.name}"
-          class="real-product-image"
-          loading="lazy"
-        >
-
-        <span class="product-badge">
-          ${product.badge}
-        </span>
-
       </div>
+
+    </div>
+
+  </div>
+
+
+  <img
+    src="${product.image}"
+    alt="${product.name}"
+    class="real-product-image"
+    loading="lazy"
+  >
+
+
+  <span class="product-badge">
+    ${product.badge}
+  </span>
+
+</div>
 
 
       <div class="product-content">
