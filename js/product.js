@@ -1,83 +1,53 @@
-/* ========================================
-   FRAMEKARO - PRODUCT DETAIL
-======================================== */
+/* =====================================================
+   FRAMEKARO - PRODUCTS
+   =====================================================
 
-const urlParams = new URLSearchParams(window.location.search);
+   FUTURE EDITING:
 
-const productId = urlParams.get("id");
+   नया product जोड़ना हो तो नीचे इसी format में
+   एक नया object add करें।
 
-const product =
-    products.find(function(item) {
-        return item.id === productId;
-    });
-
-
-const container =
-    document.getElementById("product-detail-container");
+   price = product की कीमत
+   size  = frame size
+   image = images folder में image का नाम
+   ===================================================== */
 
 
-if (product) {
+const PRODUCTS = [
 
-    container.innerHTML = `
+  {
+    id: "FK001",
 
-        <div class="product-detail-card">
+    name: "Basic Photo Frame",
 
-            <img
-                src="${product.image}"
-                alt="${product.name}"
-                class="product-detail-image"
-            >
+    size: "8 × 10 inch",
 
-            <div class="product-detail-info">
+    price: 199,
 
-                <h1>
-                    ${product.name}
-                </h1>
+    image: "images/basic-frame.jpg",
 
-                <p>
-                    ${product.description}
-                </p>
+    badge: "Popular",
 
-                <div class="product-detail-price">
-                    ₹${product.price}
-                </div>
+    description:
+      "Simple और beautiful photo frame."
+  },
 
-                <a
-                    href="order.html?id=${product.id}"
-                    class="product-order-btn"
-                >
-                    Order Now
-                </a>
 
-            </div>
+  {
+    id: "FK002",
 
-        </div>
+    name: "Premium Photo Frame",
 
-    `;
+    size: "12 × 18 inch",
 
-} else {
+    price: 299,
 
-    container.innerHTML = `
+    image: "images/premium-frame.jpg",
 
-        <div class="product-not-found">
+    badge: "Premium",
 
-            <h1>
-                Product Not Found
-            </h1>
+    description:
+      "Premium size और elegant look के साथ."
+  }
 
-            <p>
-                Sorry, this product is not available.
-            </p>
-
-            <a
-                href="products.html"
-                class="product-order-btn"
-            >
-                Back to Products
-            </a>
-
-        </div>
-
-    `;
-
-}
+];
