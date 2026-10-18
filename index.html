@@ -41,7 +41,112 @@
         <a href="#how-it-works">कैसे Order करें?</a>
         <a href="#contact">Contact</a>
       </nav>
+<!-- =========================
+     CART MODAL
+========================== -->
 
+<div
+  class="cart-modal"
+  id="cartModal"
+  aria-hidden="true">
+
+  <div
+    class="cart-overlay"
+    id="cartOverlay">
+  </div>
+
+
+  <div class="cart-box">
+
+    <button
+      type="button"
+      class="cart-close"
+      id="cartClose"
+      aria-label="Close Cart">
+
+      ×
+
+    </button>
+
+
+    <div class="cart-header">
+
+      <span>
+        🛒
+      </span>
+
+      <div>
+
+        <h2>
+          आपका Cart
+        </h2>
+
+        <p>
+          Order करने से पहले details check करें।
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="cart-items"
+      id="cartItems">
+
+      <!-- Cart items JavaScript से आएंगे -->
+
+    </div>
+
+
+    <div
+      class="cart-empty"
+      id="cartEmpty">
+
+      <div>
+        🛒
+      </div>
+
+      <h3>
+        आपका Cart खाली है
+      </h3>
+
+      <p>
+        नीचे दिए गए Frames में से अपना पसंदीदा Frame चुनें।
+      </p>
+
+    </div>
+
+
+    <div class="cart-footer">
+
+      <div class="cart-total">
+
+        <span>
+          Total
+        </span>
+
+        <strong id="cartTotal">
+          ₹0
+        </strong>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="btn btn-primary cart-order-btn"
+        id="cartOrderBtn">
+
+        Proceed to Order →
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
       <button
         class="menu-btn"
         id="menuBtn"
