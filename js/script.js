@@ -183,36 +183,45 @@ function findProduct(productId) {
 /* =====================================================
    6. RENDER PRODUCTS
    ===================================================== */
-
 function renderProducts() {
 
   if (!productsGrid) {
     return;
   }
 
-
   productsGrid.innerHTML = "";
-
 
   PRODUCTS.forEach(function(product) {
 
-    const card =
-      document.createElement("article");
+    const card = document.createElement("article");
 
-
-    card.className =
-      "product-card";
-
+    card.className = "product-card";
 
     card.innerHTML = `
 
       <div class="product-image">
 
+        <div class="frame-placeholder">
+
+          <div class="mock-frame">
+
+            <div class="mock-photo">
+
+              <div class="mock-photo-text">
+                YOUR PHOTO
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
         <img
           src="${product.image}"
           alt="${product.name}"
+          class="real-product-image"
           loading="lazy"
-          onerror="this.style.display='none';"
         >
 
         <span class="product-badge">
@@ -260,14 +269,46 @@ function renderProducts() {
 
     `;
 
-
     productsGrid.appendChild(card);
 
   });
 
 
   /*
-   * Product buttons
+   * Real image successfully load होने पर
+   * placeholder की जगह actual image दिखेगी.
+   */
+
+  const realImages =
+    document.querySelectorAll(".real-product-image");
+
+
+  realImages.forEach(function(image) {
+
+    image.addEventListener(
+      "load",
+      function() {
+
+        image.classList.add("loaded");
+
+      }
+    );
+
+
+    image.addEventListener(
+      "error",
+      function() {
+
+        image.style.display = "none";
+
+      }
+    );
+
+  });
+
+
+  /*
+   * Add to Cart buttons
    */
 
   const orderButtons =
@@ -285,7 +326,6 @@ function renderProducts() {
             "data-product-id"
           );
 
-
         addToCart(productId);
 
       }
@@ -294,6 +334,7 @@ function renderProducts() {
   });
 
 }
+
 
 
 /* =====================================================
