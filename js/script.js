@@ -1,10 +1,10 @@
 /* =====================================================
-   FRAMEKARO - MAIN JAVASCRIPT
+   FRAMEKARO - COMPLETE WEBSITE JAVASCRIPT
    ===================================================== */
 
 
 /* =====================================================
-   1. GET HTML ELEMENTS
+   1. HTML ELEMENTS
    ===================================================== */
 
 const productsGrid =
@@ -72,14 +72,116 @@ const currentYear =
 
 
 /* =====================================================
-   2. CURRENT ORDER
+   CART ELEMENTS
+   ===================================================== */
+
+const cartBtn =
+  document.getElementById("cartBtn");
+
+const cartCount =
+  document.getElementById("cartCount");
+
+const cartModal =
+  document.getElementById("cartModal");
+
+const cartOverlay =
+  document.getElementById("cartOverlay");
+
+const cartClose =
+  document.getElementById("cartClose");
+
+const cartItems =
+  document.getElementById("cartItems");
+
+const cartEmpty =
+  document.getElementById("cartEmpty");
+
+const cartTotal =
+  document.getElementById("cartTotal");
+
+const cartOrderBtn =
+  document.getElementById("cartOrderBtn");
+
+
+/* =====================================================
+   2. VARIABLES
    ===================================================== */
 
 let currentProduct = null;
 
 
+/*
+ * Cart browser में temporarily save रहेगा.
+ * Page refresh करने पर भी cart बना रहेगा.
+ */
+
+let cart = [];
+
+
 /* =====================================================
-   3. CREATE PRODUCT CARDS
+   3. LOAD CART
+   ===================================================== */
+
+try {
+
+  const savedCart =
+    localStorage.getItem("framekaroCart");
+
+  if (savedCart) {
+
+    cart =
+      JSON.parse(savedCart);
+
+  }
+
+} catch (error) {
+
+  cart = [];
+
+}
+
+
+/* =====================================================
+   4. SAVE CART
+   ===================================================== */
+
+function saveCart() {
+
+  try {
+
+    localStorage.setItem(
+      "framekaroCart",
+      JSON.stringify(cart)
+    );
+
+  } catch (error) {
+
+    console.log(
+      "Cart save नहीं हो पाया।"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   5. FIND PRODUCT
+   ===================================================== */
+
+function findProduct(productId) {
+
+  return PRODUCTS.find(function(product) {
+
+    return product.id === productId;
+
+  });
+
+}
+
+
+/* =====================================================
+   6. RENDER PRODUCTS
    ===================================================== */
 
 function renderProducts() {
@@ -88,14 +190,19 @@ function renderProducts() {
     return;
   }
 
+
   productsGrid.innerHTML = "";
+
 
   PRODUCTS.forEach(function(product) {
 
     const card =
       document.createElement("article");
 
-    card.className = "product-card";
+
+    card.className =
+      "product-card";
+
 
     card.innerHTML = `
 
@@ -125,6 +232,7 @@ function renderProducts() {
           ${product.size}
         </p>
 
+
         <div class="product-bottom">
 
           <div class="product-price">
@@ -143,7 +251,7 @@ function renderProducts() {
             class="order-btn"
             data-product-id="${product.id}"
           >
-            Order करें
+            Add to Cart
           </button>
 
         </div>
@@ -152,13 +260,14 @@ function renderProducts() {
 
     `;
 
+
     productsGrid.appendChild(card);
 
   });
 
 
   /*
-   * सभी Order buttons पर click event
+   * Product buttons
    */
 
   const orderButtons =
@@ -167,37 +276,522 @@ function renderProducts() {
 
   orderButtons.forEach(function(button) {
 
-    button.addEventListener("click", function() {
+    button.addEventListener(
+      "click",
+      function() {
 
-      const productId =
-        button.getAttribute("data-product-id");
+        const productId =
+          button.getAttribute(
+            "data-product-id"
+          );
 
-      openOrderModal(productId);
+
+        addToCart(productId);
+
+      }
+    );
+
+  });
+
+}
+
+
+/* =====================================================
+   7. ADD TO CART
+   ===================================================== */
+
+function addToCart(productId) {
+
+  const product =
+    findProduct(productId);
+
+
+  if (!product) {
+    return;
+  }
+
+
+  const existingItem =
+    cart.find(function(item) {
+
+      return item.id === productId;
 
     });
 
-  });
+
+  if (existingItem) {
+
+    if (
+      existingItem.quantity <
+      STORE.maxQuantity
+    ) {
+
+      existingItem.quantity += 1;
+
+    }
+
+  } else {
+
+    cart.push({
+
+      id: product.id,
+
+      name: product.name,
+
+      size: product.size,
+
+      price: product.price,
+
+      image: product.image,
+
+      quantity: 1
+
+    });
+
+  }
+
+
+  saveCart();
+
+  renderCart();
+
+  updateCartCount();
+
+
+  /*
+   * छोटा visual feedback
+   */
+
+  showCartFeedback();
 
 }
 
 
 /* =====================================================
-   4. FIND PRODUCT
+   8. CART FEEDBACK
    ===================================================== */
 
-function findProduct(productId) {
+function showCartFeedback() {
 
-  return PRODUCTS.find(function(product) {
+  if (!cartBtn) {
+    return;
+  }
 
-    return product.id === productId;
 
-  });
+  cartBtn.animate(
+
+    [
+      {
+        transform: "scale(1)"
+      },
+
+      {
+        transform: "scale(1.15)"
+      },
+
+      {
+        transform: "scale(1)"
+      }
+    ],
+
+    {
+      duration: 350
+    }
+
+  );
 
 }
 
 
 /* =====================================================
-   5. OPEN ORDER MODAL
+   9. UPDATE CART COUNT
+   ===================================================== */
+
+function updateCartCount() {
+
+  if (!cartCount) {
+    return;
+  }
+
+
+  const totalItems =
+    cart.reduce(
+      function(total, item) {
+
+        return total + item.quantity;
+
+      },
+      0
+    );
+
+
+  cartCount.textContent =
+    totalItems;
+
+
+  /*
+   * Empty cart पर 0 दिखेगा.
+   * चाहें तो बाद में इसे hide भी कर सकते हैं.
+   */
+
+}
+
+
+/* =====================================================
+   10. CART TOTAL
+   ===================================================== */
+
+function getCartTotal() {
+
+  return cart.reduce(
+
+    function(total, item) {
+
+      return total +
+        (item.price * item.quantity);
+
+    },
+
+    0
+
+  );
+
+}
+
+
+/* =====================================================
+   11. RENDER CART
+   ===================================================== */
+
+function renderCart() {
+
+  if (!cartItems) {
+    return;
+  }
+
+
+  cartItems.innerHTML = "";
+
+
+  if (cart.length === 0) {
+
+    cartEmpty.classList.add("active");
+
+    cartOrderBtn.disabled = true;
+
+    cartOrderBtn.style.opacity = "0.5";
+
+  } else {
+
+    cartEmpty.classList.remove("active");
+
+    cartOrderBtn.disabled = false;
+
+    cartOrderBtn.style.opacity = "1";
+
+
+    cart.forEach(function(item) {
+
+      const itemTotal =
+        item.price * item.quantity;
+
+
+      const cartItem =
+        document.createElement("div");
+
+
+      cartItem.className =
+        "cart-item";
+
+
+      cartItem.innerHTML = `
+
+        <div class="cart-item-image">
+
+          <img
+            src="${item.image}"
+            alt="${item.name}"
+            onerror="this.style.display='none';"
+          >
+
+        </div>
+
+
+        <div class="cart-item-info">
+
+          <h3>
+            ${item.name}
+          </h3>
+
+          <p>
+            ${item.size}
+          </p>
+
+
+          <div class="cart-item-controls">
+
+            <button
+              type="button"
+              class="cart-qty-btn"
+              data-action="minus"
+              data-id="${item.id}"
+            >
+              −
+            </button>
+
+
+            <span class="cart-qty">
+              ${item.quantity}
+            </span>
+
+
+            <button
+              type="button"
+              class="cart-qty-btn"
+              data-action="plus"
+              data-id="${item.id}"
+            >
+              +
+            </button>
+
+
+            <button
+              type="button"
+              class="cart-remove"
+              data-action="remove"
+              data-id="${item.id}"
+            >
+              Remove
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="cart-item-price">
+
+          ${STORE.currency}${itemTotal}
+
+        </div>
+
+      `;
+
+
+      cartItems.appendChild(cartItem);
+
+    });
+
+  }
+
+
+  const total =
+    getCartTotal();
+
+
+  cartTotal.textContent =
+    `${STORE.currency}${total}`;
+
+}
+
+
+/* =====================================================
+   12. CART ITEM ACTIONS
+   ===================================================== */
+
+if (cartItems) {
+
+  cartItems.addEventListener(
+    "click",
+    function(event) {
+
+      const button =
+        event.target.closest(
+          "button"
+        );
+
+
+      if (!button) {
+        return;
+      }
+
+
+      const productId =
+        button.getAttribute(
+          "data-id"
+        );
+
+
+      const action =
+        button.getAttribute(
+          "data-action"
+        );
+
+
+      const item =
+        cart.find(function(cartItem) {
+
+          return cartItem.id === productId;
+
+        });
+
+
+      if (!item) {
+        return;
+      }
+
+
+      /* ---------- MINUS ---------- */
+
+      if (action === "minus") {
+
+        if (item.quantity > 1) {
+
+          item.quantity -= 1;
+
+        } else {
+
+          /*
+           * Quantity 1 पर minus करने से
+           * item remove नहीं होगा.
+           */
+
+          return;
+
+        }
+
+      }
+
+
+      /* ---------- PLUS ---------- */
+
+      if (action === "plus") {
+
+        if (
+          item.quantity <
+          STORE.maxQuantity
+        ) {
+
+          item.quantity += 1;
+
+        }
+
+      }
+
+
+      /* ---------- REMOVE ---------- */
+
+      if (action === "remove") {
+
+        cart =
+          cart.filter(function(cartItem) {
+
+            return cartItem.id !== productId;
+
+          });
+
+      }
+
+
+      saveCart();
+
+      renderCart();
+
+      updateCartCount();
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   13. OPEN CART
+   ===================================================== */
+
+function openCart() {
+
+  renderCart();
+
+  updateCartCount();
+
+
+  cartModal.classList.add(
+    "active"
+  );
+
+
+  cartModal.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+
+
+  document.body.style.overflow =
+    "hidden";
+
+}
+
+
+/* =====================================================
+   14. CLOSE CART
+   ===================================================== */
+
+function closeCart() {
+
+  cartModal.classList.remove(
+    "active"
+  );
+
+
+  cartModal.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+
+  document.body.style.overflow =
+    "";
+
+}
+
+
+/* =====================================================
+   15. CART BUTTON
+   ===================================================== */
+
+if (cartBtn) {
+
+  cartBtn.addEventListener(
+    "click",
+    openCart
+  );
+
+}
+
+
+if (cartClose) {
+
+  cartClose.addEventListener(
+    "click",
+    closeCart
+  );
+
+}
+
+
+if (cartOverlay) {
+
+  cartOverlay.addEventListener(
+    "click",
+    closeCart
+  );
+
+}
+
+
+/* =====================================================
+   16. OPEN ORDER MODAL
    ===================================================== */
 
 function openOrderModal(productId) {
@@ -211,7 +805,8 @@ function openOrderModal(productId) {
   }
 
 
-  currentProduct = product;
+  currentProduct =
+    product;
 
 
   selectedProduct.value =
@@ -219,26 +814,37 @@ function openOrderModal(productId) {
 
 
   selectedProductText.textContent =
-    `${product.name} • ${product.size} • ${STORE.currency}${product.price}`;
+
+    `${product.name} • ` +
+    `${product.size} • ` +
+    `${STORE.currency}` +
+    `${product.price}`;
 
 
-  quantityInput.value = 1;
+  quantityInput.value =
+    1;
 
 
   updateTotal();
 
 
-  photoInput.value = "";
+  photoInput.value =
+    "";
 
 
   photoPreview.innerHTML = `
+
     <span>
       Photo Preview
     </span>
+
   `;
 
 
-  orderModal.classList.add("active");
+  orderModal.classList.add(
+    "active"
+  );
+
 
   orderModal.setAttribute(
     "aria-hidden",
@@ -253,12 +859,15 @@ function openOrderModal(productId) {
 
 
 /* =====================================================
-   6. CLOSE ORDER MODAL
+   17. CLOSE ORDER MODAL
    ===================================================== */
 
 function closeOrderModal() {
 
-  orderModal.classList.remove("active");
+  orderModal.classList.remove(
+    "active"
+  );
+
 
   orderModal.setAttribute(
     "aria-hidden",
@@ -273,7 +882,7 @@ function closeOrderModal() {
 
 
 /* =====================================================
-   7. MODAL EVENTS
+   18. ORDER MODAL EVENTS
    ===================================================== */
 
 if (closeModal) {
@@ -296,20 +905,38 @@ if (modalOverlay) {
 }
 
 
-/*
- * ESC key से modal close
- */
+/* =====================================================
+   19. ESC KEY
+   ===================================================== */
 
 document.addEventListener(
   "keydown",
   function(event) {
 
     if (
-      event.key === "Escape" &&
-      orderModal.classList.contains("active")
+      event.key === "Escape"
     ) {
 
-      closeOrderModal();
+      if (
+        orderModal.classList.contains(
+          "active"
+        )
+      ) {
+
+        closeOrderModal();
+
+      }
+
+
+      if (
+        cartModal.classList.contains(
+          "active"
+        )
+      ) {
+
+        closeCart();
+
+      }
 
     }
 
@@ -318,7 +945,7 @@ document.addEventListener(
 
 
 /* =====================================================
-   8. PHOTO PREVIEW
+   20. PHOTO PREVIEW
    ===================================================== */
 
 if (photoInput) {
@@ -334,9 +961,11 @@ if (photoInput) {
       if (!file) {
 
         photoPreview.innerHTML = `
+
           <span>
             Photo Preview
           </span>
+
         `;
 
         return;
@@ -344,17 +973,20 @@ if (photoInput) {
       }
 
 
-      /*
-       * केवल image files allow
-       */
-
-      if (!file.type.startsWith("image/")) {
+      if (
+        !file.type.startsWith(
+          "image/"
+        )
+      ) {
 
         alert(
           "कृपया केवल image file चुनें।"
         );
 
-        photoInput.value = "";
+
+        photoInput.value =
+          "";
+
 
         return;
 
@@ -389,7 +1021,7 @@ if (photoInput) {
 
 
 /* =====================================================
-   9. QUANTITY
+   21. SINGLE PRODUCT QUANTITY
    ===================================================== */
 
 if (minusBtn) {
@@ -399,7 +1031,9 @@ if (minusBtn) {
     function() {
 
       let quantity =
-        parseInt(quantityInput.value) || 1;
+        parseInt(
+          quantityInput.value
+        ) || 1;
 
 
       if (quantity > 1) {
@@ -426,10 +1060,15 @@ if (plusBtn) {
     function() {
 
       let quantity =
-        parseInt(quantityInput.value) || 1;
+        parseInt(
+          quantityInput.value
+        ) || 1;
 
 
-      if (quantity < STORE.maxQuantity) {
+      if (
+        quantity <
+        STORE.maxQuantity
+      ) {
 
         quantity++;
 
@@ -447,7 +1086,7 @@ if (plusBtn) {
 
 
 /* =====================================================
-   10. UPDATE TOTAL
+   22. UPDATE SINGLE PRODUCT TOTAL
    ===================================================== */
 
 function updateTotal() {
@@ -458,21 +1097,25 @@ function updateTotal() {
 
 
   const quantity =
-    parseInt(quantityInput.value) || 1;
+    parseInt(
+      quantityInput.value
+    ) || 1;
 
 
   const total =
-    currentProduct.price * quantity;
+    currentProduct.price *
+    quantity;
 
 
   orderTotal.textContent =
+
     `${STORE.currency}${total}`;
 
 }
 
 
 /* =====================================================
-   11. MOBILE MENU
+   23. MOBILE MENU
    ===================================================== */
 
 if (menuBtn) {
@@ -486,19 +1129,19 @@ if (menuBtn) {
       );
 
 
-      /*
-       * Menu icon बदलना
-       */
-
       if (
-        mobileMenu.classList.contains("active")
+        mobileMenu.classList.contains(
+          "active"
+        )
       ) {
 
-        menuBtn.textContent = "×";
+        menuBtn.textContent =
+          "×";
 
       } else {
 
-        menuBtn.textContent = "☰";
+        menuBtn.textContent =
+          "☰";
 
       }
 
@@ -508,45 +1151,52 @@ if (menuBtn) {
 }
 
 
-/*
- * Mobile menu link click होने पर
- * menu automatically close
- */
+/* =====================================================
+   24. MOBILE MENU LINKS
+   ===================================================== */
 
 if (mobileMenu) {
 
   const mobileLinks =
-    mobileMenu.querySelectorAll("a");
-
-
-  mobileLinks.forEach(function(link) {
-
-    link.addEventListener(
-      "click",
-      function() {
-
-        mobileMenu.classList.remove(
-          "active"
-        );
-
-        menuBtn.textContent = "☰";
-
-      }
+    mobileMenu.querySelectorAll(
+      "a"
     );
 
-  });
+
+  mobileLinks.forEach(
+    function(link) {
+
+      link.addEventListener(
+        "click",
+        function() {
+
+          mobileMenu.classList.remove(
+            "active"
+          );
+
+
+          menuBtn.textContent =
+            "☰";
+
+        }
+      );
+
+    }
+  );
 
 }
 
 
 /* =====================================================
-   12. CONTACT LINKS
+   25. CONTACT LINKS
    ===================================================== */
 
 if (whatsappContact) {
 
   whatsappContact.href =
-    `https://wa.me/${STORE.whatsapp}`;
+
+    `https://wa.me/` +
+    `${STORE.whatsapp}`;
 
 }
 
@@ -554,15 +1204,15 @@ if (whatsappContact) {
 if (callContact) {
 
   callContact.href =
+
     `tel:+${STORE.phone}`;
 
 }
 
 
 /* =====================================================
-   13. WHATSAPP ORDER
+   26. WHATSAPP - SINGLE PRODUCT ORDER
    ===================================================== */
-
 if (orderForm) {
 
   orderForm.addEventListener(
@@ -571,10 +1221,6 @@ if (orderForm) {
 
       event.preventDefault();
 
-
-      /*
-       * Product check
-       */
 
       if (!currentProduct) {
 
@@ -586,10 +1232,6 @@ if (orderForm) {
 
       }
 
-
-      /*
-       * Photo check
-       */
 
       const photo =
         photoInput.files[0];
@@ -608,10 +1250,6 @@ if (orderForm) {
       }
 
 
-      /*
-       * Customer details
-       */
-
       const name =
         customerName.value.trim();
 
@@ -624,11 +1262,9 @@ if (orderForm) {
         customerAddress.value.trim();
 
 
-      /*
-       * Name validation
-       */
-
-      if (name.length < 2) {
+      if (
+        name.length < 2
+      ) {
 
         alert(
           "कृपया अपना सही नाम डालें।"
@@ -641,15 +1277,13 @@ if (orderForm) {
       }
 
 
-      /*
-       * Mobile validation
-       */
-
       const phonePattern =
         /^[6-9][0-9]{9}$/;
 
 
-      if (!phonePattern.test(phone)) {
+      if (
+        !phonePattern.test(phone)
+      ) {
 
         alert(
           "कृपया 10 digit का सही mobile number डालें।"
@@ -662,11 +1296,9 @@ if (orderForm) {
       }
 
 
-      /*
-       * Address validation
-       */
-
-      if (address.length < 10) {
+      if (
+        address.length < 10
+      ) {
 
         alert(
           "कृपया पूरा delivery address डालें।"
@@ -679,25 +1311,16 @@ if (orderForm) {
       }
 
 
-      /*
-       * Quantity
-       */
-
       const quantity =
-        parseInt(quantityInput.value) || 1;
+        parseInt(
+          quantityInput.value
+        ) || 1;
 
-
-      /*
-       * Total
-       */
 
       const total =
-        currentProduct.price * quantity;
+        currentProduct.price *
+        quantity;
 
-
-      /*
-       * WhatsApp message
-       */
 
       let message =
 
@@ -728,7 +1351,7 @@ ${address}
 ━━━━━━━━━━━━━━━━━━
 
 📸 Photo:
-Customer ने photo upload की है।
+Customer ने photo select की है।
 
 🚚 ${STORE.deliveryMessage}
 
@@ -738,29 +1361,21 @@ Thank you!
 *${STORE.name}*`;
 
 
-      /*
-       * WhatsApp URL
-       */
-
       const whatsappURL =
 
-        `https://wa.me/${STORE.whatsapp}?text=` +
-        encodeURIComponent(message);
+        `https://wa.me/` +
+        `${STORE.whatsapp}` +
+        `?text=` +
+        encodeURIComponent(
+          message
+        );
 
-
-      /*
-       * WhatsApp open
-       */
 
       window.open(
         whatsappURL,
         "_blank"
       );
 
-
-      /*
-       * Modal close
-       */
 
       closeOrderModal();
 
@@ -771,7 +1386,136 @@ Thank you!
 
 
 /* =====================================================
-   14. CURRENT YEAR
+   27. CART → WHATSAPP ORDER
+   ===================================================== */
+
+if (cartOrderBtn) {
+
+  cartOrderBtn.addEventListener(
+    "click",
+    function() {
+
+      if (
+        cart.length === 0
+      ) {
+
+        alert(
+          "आपका Cart खाली है।"
+        );
+
+        return;
+
+      }
+
+
+      /*
+       * Cart के products की list
+       */
+
+      let productLines = "";
+
+
+      cart.forEach(
+        function(item, index) {
+
+          const itemTotal =
+            item.price *
+            item.quantity;
+
+
+          productLines +=
+
+`${index + 1}. ${item.name}
+   Size: ${item.size}
+   Quantity: ${item.quantity}
+   Price: ${STORE.currency}${item.price}
+   Subtotal: ${STORE.currency}${itemTotal}
+
+`;
+
+        }
+      );
+
+
+      const total =
+        getCartTotal();
+
+
+      /*
+       * Customer को अभी
+       * WhatsApp पर भेजेंगे.
+       *
+       * इसके बाद customer अपनी
+       * photos भेज सकता है.
+       */
+
+      let message =
+
+`🖼️ *${STORE.name} - New Order*
+
+━━━━━━━━━━━━━━━━━━
+
+📦 *Order Details*
+
+${productLines}
+
+━━━━━━━━━━━━━━━━━━
+
+💰 *TOTAL: ${STORE.currency}${total}*
+
+━━━━━━━━━━━━━━━━━━
+
+📸 *Photos*
+
+मैं अपने selected products की photos
+WhatsApp पर इस message के बाद भेजूंगा/भेजूंगी।
+
+🚚 ${STORE.deliveryMessage}
+
+Please confirm my order.
+
+Thank you!
+*${STORE.name}*`;
+
+
+      const whatsappURL =
+
+        `https://wa.me/` +
+        `${STORE.whatsapp}` +
+        `?text=` +
+        encodeURIComponent(
+          message
+        );
+
+
+      window.open(
+        whatsappURL,
+        "_blank"
+      );
+
+
+      /*
+       * Order भेजने के बाद cart clear
+       */
+
+      cart = [];
+
+      saveCart();
+
+      renderCart();
+
+      updateCartCount();
+
+      closeCart();
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   28. CURRENT YEAR
    ===================================================== */
 
 if (currentYear) {
@@ -783,7 +1527,11 @@ if (currentYear) {
 
 
 /* =====================================================
-   15. INITIALIZE WEBSITE
+   29. INITIALIZE
    ===================================================== */
 
 renderProducts();
+
+renderCart();
+
+updateCartCount();
