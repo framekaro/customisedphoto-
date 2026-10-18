@@ -1,135 +1,799 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
 
-    <title>FrameKaro | Custom Photo Frames</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="description"
-        content="FrameKaro - Create beautiful custom photo frames with your favorite memories."
-    >
+  <meta name="theme-color" content="#111827">
 
-    <link rel="stylesheet" href="css/style.css">
+  <meta name="description"
+        content="FrameKaro - आपकी यादें, खूबसूरत Frame में। Custom Photo Frames with Home Delivery.">
+
+  <title>FrameKaro | आपकी यादें, खूबसूरत Frame में</title>
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-    <!-- =========================
-         HEADER
-    ========================== -->
-    <header class="header">
+  <!-- =========================
+       HEADER
+  ========================== -->
 
-        <div class="logo">
-            FrameKaro
-        </div>
+  <header class="header">
 
-        <nav class="navbar">
-            <a href="index.html">Home</a>
-            <a href="products.html">Products</a>
-            <a href="order.html">Order</a>
-        </nav>
+    <div class="container header-inner">
 
-    </header>
+      <a href="#home" class="logo">
+        <span class="logo-icon">🖼️</span>
+        <span>
+          <strong>FrameKaro</strong>
+          <small>आपकी यादें, खूबसूरत Frame में</small>
+        </span>
+      </a>
 
+      <nav class="desktop-nav">
+        <a href="#home">Home</a>
+        <a href="#products">Frames</a>
+        <a href="#how-it-works">कैसे Order करें?</a>
+        <a href="#contact">Contact</a>
+      </nav>
 
-    <!-- =========================
-         HERO SECTION
-    ========================== -->
-    <main>
+      <button
+        class="menu-btn"
+        id="menuBtn"
+        aria-label="Menu">
+        ☰
+      </button>
 
-        <section class="hero">
+    </div>
 
-            <div class="hero-content">
+    <!-- Mobile Menu -->
 
-                <h1>
-                    Turn Your Memories Into Beautiful Frames
-                </h1>
+    <div class="mobile-menu" id="mobileMenu">
 
-                <p>
-                    Create personalized photo frames with your favorite memories.
-                </p>
+      <a href="#home">Home</a>
+      <a href="#products">Frames</a>
+      <a href="#how-it-works">कैसे Order करें?</a>
+      <a href="#contact">Contact</a>
 
-                <a href="products.html" class="btn">
-                    Explore Frames
-                </a>
+    </div>
 
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             FEATURES
-        ========================== -->
-        <section class="features">
-
-            <h2>Why Choose FrameKaro?</h2>
-
-            <div class="feature-container">
-
-                <div class="feature-card">
-                    <h3>🖼️ Custom Frames</h3>
-                    <p>
-                        Choose a frame and personalize it with your photos.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <h3>📸 Multiple Photos</h3>
-                    <p>
-                        Upload multiple photos for your personalized frame.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <h3>🚚 Easy Ordering</h3>
-                    <p>
-                        Simple and convenient ordering process.
-                    </p>
-                </div>
-
-            </div>
-
-        </section>
+  </header>
 
 
-        <!-- =========================
-             CALL TO ACTION
-        ========================== -->
-        <section class="cta">
+  <!-- =========================
+       HERO SECTION
+  ========================== -->
 
-            <h2>
-                Ready to Frame Your Memories?
-            </h2>
+  <main>
 
-            <p>
-                Choose your favorite frame and start creating.
-            </p>
+    <section class="hero" id="home">
 
-            <a href="products.html" class="btn">
-                View Frames
+      <div class="container hero-grid">
+
+        <div class="hero-content">
+
+          <span class="hero-badge">
+            ✨ Custom Photo Frames
+          </span>
+
+          <h1>
+            आपकी यादें,
+            <span>खूबसूरत Frame में</span>
+          </h1>
+
+          <p>
+            अपनी सबसे खास तस्वीरों को एक खूबसूरत
+            Photo Frame में बदलें और अपनी यादों को
+            हमेशा के लिए संभालकर रखें।
+          </p>
+
+          <div class="hero-buttons">
+
+            <a href="#products" class="btn btn-primary">
+              🛒 Frame Order करें
             </a>
 
-        </section>
+            <a
+              href="#how-it-works"
+              class="btn btn-secondary">
+              कैसे काम करता है?
+            </a>
 
-    </main>
+          </div>
+
+          <div class="hero-features">
+
+            <div>
+              <strong>📸</strong>
+              <span>अपनी Photo</span>
+            </div>
+
+            <div>
+              <strong>🖼️</strong>
+              <span>Beautiful Frame</span>
+            </div>
+
+            <div>
+              <strong>🚚</strong>
+              <span>Home Delivery</span>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="hero-image">
+
+          <div class="hero-frame">
+
+            <div class="hero-placeholder">
+              <span>📷</span>
+              <p>Your Photo Here</p>
+              <small>FrameKaro</small>
+            </div>
+
+          </div>
+
+          <div class="floating-card card-one">
+            ❤️ आपकी यादें
+          </div>
+
+          <div class="floating-card card-two">
+            🚚 Home Delivery
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
 
 
     <!-- =========================
-         FOOTER
+         PRODUCTS
     ========================== -->
-    <footer class="footer">
+
+    <section class="products-section" id="products">
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <span>OUR COLLECTION</span>
+
+          <h2>
+            अपना पसंदीदा Frame चुनें
+          </h2>
+
+          <p>
+            अपनी पसंद का Frame चुनें और अपनी Photo
+            के साथ Order करें।
+          </p>
+
+        </div>
+
+
+        <div
+          class="products-grid"
+          id="productsGrid">
+
+          <!-- Products JavaScript से आएंगे -->
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         HOW IT WORKS
+    ========================== -->
+
+    <section
+      class="how-section"
+      id="how-it-works">
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <span>SIMPLE PROCESS</span>
+
+          <h2>
+            Order करना बहुत आसान है
+          </h2>
+
+        </div>
+
+
+        <div class="steps-grid">
+
+          <div class="step-card">
+
+            <div class="step-number">
+              01
+            </div>
+
+            <div class="step-icon">
+              🖼️
+            </div>
+
+            <h3>
+              Frame चुनें
+            </h3>
+
+            <p>
+              अपनी पसंद का Frame और size चुनें।
+            </p>
+
+          </div>
+
+
+          <div class="step-card">
+
+            <div class="step-number">
+              02
+            </div>
+
+            <div class="step-icon">
+              📸
+            </div>
+
+            <h3>
+              Photo Upload करें
+            </h3>
+
+            <p>
+              जिस Photo को Frame करवाना है उसे upload करें।
+            </p>
+
+          </div>
+
+
+          <div class="step-card">
+
+            <div class="step-number">
+              03
+            </div>
+
+            <div class="step-icon">
+              📝
+            </div>
+
+            <h3>
+              Details भरें
+            </h3>
+
+            <p>
+              अपना नाम, mobile number और delivery address दें।
+            </p>
+
+          </div>
+
+
+          <div class="step-card">
+
+            <div class="step-number">
+              04
+            </div>
+
+            <div class="step-icon">
+              📱
+            </div>
+
+            <h3>
+              WhatsApp पर Order
+            </h3>
+
+            <p>
+              Order details सीधे WhatsApp पर भेजें।
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         WHY FRAMEKARO
+    ========================== -->
+
+    <section class="why-section">
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <span>WHY FRAMEKARO?</span>
+
+          <h2>
+            आपकी यादों के लिए
+          </h2>
+
+        </div>
+
+
+        <div class="why-grid">
+
+          <div class="why-card">
+
+            <div class="why-icon">
+              ❤️
+            </div>
+
+            <h3>
+              आपकी यादें सबसे खास
+            </h3>
+
+            <p>
+              आपकी favourite memories को खूबसूरत
+              तरीके से preserve करने के लिए।
+            </p>
+
+          </div>
+
+
+          <div class="why-card">
+
+            <div class="why-icon">
+              ✨
+            </div>
+
+            <h3>
+              सुंदर Design
+            </h3>
+
+            <p>
+              घर, office या gift के लिए attractive
+              photo frames।
+            </p>
+
+          </div>
+
+
+          <div class="why-card">
+
+            <div class="why-icon">
+              🚚
+            </div>
+
+            <h3>
+              Home Delivery
+            </h3>
+
+            <p>
+              आपके address तक frame delivery
+              की सुविधा।
+            </p>
+
+          </div>
+
+
+          <div class="why-card">
+
+            <div class="why-icon">
+              📱
+            </div>
+
+            <h3>
+              आसान WhatsApp Order
+            </h3>
+
+            <p>
+              बिना किसी complicated process के
+              सीधे WhatsApp से order।
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         ORDER CTA
+    ========================== -->
+
+    <section class="cta-section">
+
+      <div class="container">
+
+        <div class="cta-box">
+
+          <div>
+
+            <span>
+              अपनी यादों को आज ही Frame करें ❤️
+            </span>
+
+            <h2>
+              आपकी favourite photo,
+              अब आपके favourite Frame में।
+            </h2>
+
+          </div>
+
+          <a
+            href="#products"
+            class="btn btn-light">
+            अपना Frame चुनें →
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         CONTACT
+    ========================== -->
+
+    <section
+      class="contact-section"
+      id="contact">
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <span>CONTACT</span>
+
+          <h2>
+            हमसे संपर्क करें
+          </h2>
+
+          <p>
+            किसी भी जानकारी या Order के लिए
+            WhatsApp पर संपर्क करें।
+          </p>
+
+        </div>
+
+
+        <div class="contact-grid">
+
+          <a
+            href="#"
+            class="contact-card"
+            id="whatsappContact">
+
+            <div class="contact-icon">
+              💬
+            </div>
+
+            <div>
+
+              <h3>
+                WhatsApp
+              </h3>
+
+              <p>
+                Order या enquiry भेजें
+              </p>
+
+            </div>
+
+          </a>
+
+
+          <a
+            href="#"
+            class="contact-card"
+            id="callContact">
+
+            <div class="contact-icon">
+              📞
+            </div>
+
+            <div>
+
+              <h3>
+                Call
+              </h3>
+
+              <p>
+                हमसे सीधे बात करें
+              </p>
+
+            </div>
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer class="footer">
+
+    <div class="container footer-grid">
+
+      <div class="footer-brand">
+
+        <h2>
+          🖼️ FrameKaro
+        </h2>
 
         <p>
-            © 2026 FrameKaro. All Rights Reserved.
+          आपकी यादें, खूबसूरत Frame में।
         </p>
 
-    </footer>
+      </div>
 
 
-    <script src="js/main.js"></script>
+      <div class="footer-links">
+
+        <h3>
+          Quick Links
+        </h3>
+
+        <a href="#home">Home</a>
+        <a href="#products">Frames</a>
+        <a href="#how-it-works">How to Order</a>
+        <a href="#contact">Contact</a>
+
+      </div>
+
+
+      <div class="footer-info">
+
+        <h3>
+          Delivery
+        </h3>
+
+        <p>
+          🚚 Home Delivery Available
+        </p>
+
+        <p>
+          📱 WhatsApp Orders
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <p>
+        © <span id="currentYear"></span>
+        FrameKaro. All Rights Reserved.
+      </p>
+
+    </div>
+
+  </footer>
+
+
+  <!-- =========================
+       ORDER MODAL
+  ========================== -->
+
+  <div
+    class="modal"
+    id="orderModal"
+    aria-hidden="true">
+
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <div class="modal-box">
+
+      <button
+        class="modal-close"
+        id="closeModal"
+        aria-label="Close">
+        ×
+      </button>
+
+
+      <div class="modal-header">
+
+        <span class="modal-icon">
+          🖼️
+        </span>
+
+        <h2>
+          अपना Order तैयार करें
+        </h2>
+
+        <p id="selectedProductText">
+          Product
+        </p>
+
+      </div>
+
+
+      <form id="orderForm">
+
+
+        <!-- Product -->
+
+        <input
+          type="hidden"
+          id="selectedProduct">
+
+
+        <!-- Photo -->
+
+        <div class="form-group">
+
+          <label for="photo">
+            📸 अपनी Photo चुनें
+          </label>
+
+          <input
+            type="file"
+            id="photo"
+            accept="image/*"
+            required>
+
+          <div
+            class="photo-preview"
+            id="photoPreview">
+
+            <span>
+              Photo Preview
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- Name -->
+
+        <div class="form-group">
+
+          <label for="customerName">
+            आपका नाम
+          </label>
+
+          <input
+            type="text"
+            id="customerName"
+            placeholder="अपना नाम लिखें"
+            required>
+
+        </div>
+
+
+        <!-- Mobile -->
+
+        <div class="form-group">
+
+          <label for="customerPhone">
+            Mobile Number
+          </label>
+
+          <input
+            type="tel"
+            id="customerPhone"
+            placeholder="10 digit mobile number"
+            maxlength="10"
+            required>
+
+        </div>
+
+
+        <!-- Address -->
+
+        <div class="form-group">
+
+          <label for="customerAddress">
+            Delivery Address
+          </label>
+
+          <textarea
+            id="customerAddress"
+            rows="3"
+            placeholder="पूरा delivery address"
+            required></textarea>
+
+        </div>
+
+
+        <!-- Quantity -->
+
+        <div class="form-group">
+
+          <label for="quantity">
+            Quantity
+          </label>
+
+          <div class="quantity-control">
+
+            <button
+              type="button"
+              id="minusBtn">
+              −
+            </button>
+
+            <input
+              type="number"
+              id="quantity"
+              value="1"
+              min="1"
+              max="10"
+              readonly>
+
+            <button
+              type="button"
+              id="plusBtn">
+              +
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- Total -->
+
+        <div class="order-total">
+
+          <span>
+            Total
+          </span>
+
+          <strong id="orderTotal">
+            ₹0
+          </strong>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="btn btn-whatsapp">
+
+          💬 WhatsApp पर Order भेजें
+
+        </button>
+
+
+        <p class="form-note">
+          आपकी Order details WhatsApp पर भेजी जाएंगी।
+        </p>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+
+  <script src="js/config.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/script.js"></script>
 
 </body>
 </html>
