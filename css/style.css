@@ -3092,3 +3092,174 @@ section {
   }
 
 }
+/* ==========================================
+   FRAMEKARO - REALISTIC CSS FRAME SHOWCASE
+   ========================================== */
+
+.product-image {
+  position: relative !important;
+  height: 300px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  overflow: hidden !important;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #ffffff 0%,
+      #f3f4f6 60%,
+      #e5e7eb 100%
+    ) !important;
+}
+
+
+/* Frame */
+
+.frame-showcase {
+  position: relative;
+
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.frame-outer {
+  width: 165px;
+  height: 210px;
+
+  padding: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #c58a4a,
+      #75451f 45%,
+      #b7793f
+    );
+
+  border: 5px solid #4a2b17;
+
+  box-shadow:
+    0 6px 0 #321b0d,
+    0 18px 30px rgba(0,0,0,.28);
+
+  transform:
+    rotate(-3deg);
+
+  border-radius: 3px;
+}
+
+
+.frame-inner {
+  width: 100%;
+  height: 100%;
+
+  padding: 5px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #f8fafc,
+      #cbd5e1
+    );
+
+  box-shadow:
+    inset 0 0 10px rgba(0,0,0,.15);
+}
+
+
+.frame-photo {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff,
+      #e2e8f0
+    );
+
+  border: 2px solid #ffffff;
+
+  box-shadow:
+    inset 0 0 18px rgba(0,0,0,.08);
+}
+
+
+.frame-photo span {
+  color: #94a3b8;
+
+  font-size: 10px;
+
+  font-weight: 900;
+
+  letter-spacing: 1.5px;
+}
+
+
+/* Premium frame */
+
+.product-card:nth-child(2)
+.frame-outer {
+
+  background:
+    linear-gradient(
+      135deg,
+      #f3d77a,
+      #a77b18 45%,
+      #e3bd50
+    );
+
+  border-color: #765913;
+
+}
+
+
+/* Real product image */
+
+.real-product-image {
+  position: absolute !important;
+
+  inset: 0 !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  object-fit: cover !important;
+
+  z-index: 4 !important;
+
+  display: none;
+}
+
+
+.real-product-image.loaded {
+  display: block !important;
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+  .product-image {
+    height: 260px !important;
+  }
+
+  .frame-outer {
+    width: 140px;
+    height: 180px;
+    padding: 12px;
+  }
+
+}
